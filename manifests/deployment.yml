@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: camiloestradacalidaddatosback 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: camiloestradacalidaddatosback
+  template:
+    metadata:
+      labels:
+        app: camiloestradacalidaddatosback 
+    spec:
+      containers:
+        - name: camiloestradacalidaddatosback 
+          image: crcalidad.azurecr.io/camiloestradacalidaddatosback
+          ports:
+          - containerPort: 80
