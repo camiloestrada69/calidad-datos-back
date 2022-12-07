@@ -10,7 +10,7 @@ RUN npm install --only=development
 
 COPY devops .
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start:prod"]
 
 FROM node:12.19.0-alpine3.9 as production
 
