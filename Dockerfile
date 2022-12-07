@@ -12,7 +12,7 @@ RUN npm install --only=development
 
 COPY ./ .
 
-RUN npm run build
+CMD ["npm", "run", "nest build"]
 
 FROM node:12.19.0-alpine3.9 as production
 
