@@ -29,6 +29,6 @@ COPY . .
 
 RUN file1="$(ls -1 /usr/src/app/)" && echo $file1
 
-COPY --from=development /usr/src/app/dist/src ./dist
+COPY --from=development /usr/src/app/dist/ ./dist
 
 CMD ["npm", "run", "start:prod"]
