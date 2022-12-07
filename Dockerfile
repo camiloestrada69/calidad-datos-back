@@ -1,34 +1,42 @@
-FROM node:12.19.0-alpine3.9 AS development
+FROM node:18-alpine As development
 
 WORKDIR /usr/src/app
 
-RUN file="$(ls)" && echo $file
+COPY --chown=node:node package*.json ./
 
-COPY ./package.json package.json
+RUN npm ci
 
-RUN npm install glob rimraf
+COPY --chown=node:node . .
 
-RUN npm install --only=development
+USER node
 
-COPY . .
+###################
+# BUILD FOR PRODUCTION
+###################
+
+FROM node:18-alpine As build
+
+WORKDIR /usr/src/app
+
+COPY --chown=node:node package*.json ./
+
+COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+
+COPY --chown=node:node . .
 
 RUN npm run build
 
-FROM node:12.19.0-alpine3.9 as production
+ENV NODE_ENV production
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+RUN npm ci --only=production && npm cache clean --force
 
-WORKDIR /usr/src/app
+USER node
 
-COPY ./package.json package.json
+###################
+# PRODUCTION
+###################
 
-RUN npm install --only=production
+FROM node:18-alpine As production
 
-COPY . .
-
-RUN file1="$(ls -1 /usr/src/app/)" && echo $file1
-
-COPY --from=development /usr/src/app/dist/ ./dist
-
-CMD ["npm", "run", "start:prod"]
+COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
+COPY --chown=node:node --from=build /usr/src/app/dist ./dist
