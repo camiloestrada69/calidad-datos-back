@@ -2,13 +2,13 @@ FROM node:12.19.0-alpine3.9 AS development
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY ./package.json package.json
 
 RUN npm install glob rimraf
 
 RUN npm install --only=development
 
-COPY . .
+COPY devops .
 
 RUN npm run build
 
@@ -23,7 +23,7 @@ COPY ./package.json package.json
 
 RUN npm install --only=production
 
-COPY . .
+COPY devops .
 
 COPY --from=development /usr/src/app/dist ./dist
 
