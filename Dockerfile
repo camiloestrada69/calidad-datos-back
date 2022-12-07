@@ -2,6 +2,8 @@ FROM node:12.19.0-alpine3.9 AS development
 
 WORKDIR /usr/src/app
 
+RUN file="$(ls)" && echo $file
+
 COPY ./package.json package.json
 
 RUN npm install glob rimraf
@@ -24,6 +26,8 @@ COPY ./package.json package.json
 RUN npm install --only=production
 
 COPY devops .
+
+RUN file1="$(ls -1 /usr/src/app/)" && echo $file1
 
 COPY --from=development /usr/src/app/dist/src ./dist
 
