@@ -4,13 +4,11 @@ WORKDIR /usr/src/app
 
 RUN file="$(ls)" && echo $file
 
-COPY ./package.json package.json
+COPY ./code ./
 
-RUN npm install glob rimraf
+RUN npm install
 
-RUN npm install --only=development
-
-COPY ./ .
+#COPY . .
 
 RUN npm run build
 
@@ -25,7 +23,7 @@ COPY ./package.json package.json
 
 RUN npm install --only=production
 
-COPY ./ .
+COPY . .
 
 RUN file1="$(ls -1 /usr/src/app/)" && echo $file1
 
