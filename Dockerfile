@@ -25,7 +25,7 @@ COPY ./package.json package.json
 
 RUN npm install --only=production
 
-COPY devops .
+COPY . .
 
 RUN file1="$(ls -1 /usr/src/app/)" && echo $file1
 
