@@ -25,6 +25,6 @@ RUN npm install --only=production
 
 COPY devops .
 
-COPY --from=development /usr/src/app/dist ./dist
+COPY --from=development /usr/src/app/dist/src ./dist
 
 CMD ["npm", "run", "start:prod"]
