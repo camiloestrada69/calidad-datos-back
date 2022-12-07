@@ -10,9 +10,9 @@ RUN npm install glob rimraf
 
 RUN npm install --only=development
 
-COPY ./ .
+COPY . .
 
-CMD ["npm", "run", "nest build"]
+RUN npm run build
 
 FROM node:12.19.0-alpine3.9 as production
 
