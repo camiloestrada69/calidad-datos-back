@@ -10,9 +10,9 @@ RUN npm install glob rimraf
 
 RUN npm install --only=development
 
-COPY devops .
+COPY . .
 
-CMD ["npm", "run", "start:prod"]
+RUN npm run build
 
 FROM node:12.19.0-alpine3.9 as production
 
