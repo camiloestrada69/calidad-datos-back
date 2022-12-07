@@ -10,7 +10,7 @@ RUN npm install glob rimraf
 
 RUN npm install --only=development
 
-COPY . .
+COPY ./ .
 
 RUN npm run build
 
