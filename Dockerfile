@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 RUN file="$(ls)" && echo $file
 
-COPY ./code ./
+COPY ./package.json package.json
 
 RUN npm install
 
