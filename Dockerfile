@@ -2,15 +2,13 @@ FROM node:12.19.0-alpine3.9 AS development
 
 WORKDIR /usr/src/app
 
-RUN file="$(/usr/src/app ls)" && echo $file
-
 COPY ./package.json package.json
 
 RUN npm install
 
 COPY ./ .
 
-RUN npm run start:dev
+RUN npm run build
 
 FROM node:12.19.0-alpine3.9 as production
 
