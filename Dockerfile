@@ -8,9 +8,9 @@ COPY ./package.json package.json
 
 RUN npm install
 
-#COPY . .
+COPY ./ .
 
-RUN npm run build
+RUN npm run start:dev
 
 FROM node:12.19.0-alpine3.9 as production
 
