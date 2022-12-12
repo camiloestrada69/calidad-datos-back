@@ -16,4 +16,4 @@ spec:
         - name: camiloestradacalidaddatosback 
           image: crcalidad.azurecr.io/camiloestradacalidaddatosback
           ports:
-          - containerPort: 80
+          - containerPort: 5000
